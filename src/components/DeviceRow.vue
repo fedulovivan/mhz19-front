@@ -1,21 +1,24 @@
 <script setup lang="ts">
-import { IDevice } from '../types.ts';
+import {
+    IDevice,
+    IMessage,
+} from '../types.ts';
+import { extractDeviceIdString } from '../utils.ts';
 
-defineProps<{ device: IDevice }>() 
+defineProps<{ device: IDevice; message?: IMessage }>()
+
 </script>
 
 <template>
-    <div class="row">
-        <div>#{{ device.id }}</div>
-        <div>{{ device.name ?? '-' }}</div>
-        <div>{{ device.deviceId }}</div>
-        <div>{{ device.deviceClassId }}</div>
-        <div>{{ device.comments }}</div>
-    </div>
+    <router-link :to="`/devices/${extractDeviceIdString(device.deviceId)}`" custom v-slot="{ navigate }">
+        <tr @click="navigate">
+            <td>#{{ device.id }}</td>
+            <td>{{ device.deviceClass }}</td>
+            <td>{{ device.deviceId }}</td>
+            <td>{{ device.name ?? '-' }}</td>
+            <td>{{ message?.payload ?? '-' }}</td>
+            <td>{{ device.comments ?? '-' }}</td>
+            <td>{{ device.origin ?? '-' }}</td>
+        </tr>
+    </router-link>
 </template>
-
-<style scoped>
-.row {
-    grid-template-columns: 50px 1fr 1fr 1fr 1fr;
-}
-</style>

@@ -1,30 +1,29 @@
 <script setup lang="ts">
-import {
-    onMounted,
-    ref,
-} from 'vue';
+import { onMounted } from 'vue';
 
-import axios from 'axios';
+import { storeToRefs } from 'pinia';
 import {
     useRoute,
     useRouter,
 } from 'vue-router';
 
-import { IRule } from '../types.ts';
+import { useDictsStore } from '../stores/dicts.ts';
+import { useRulesStore } from '../stores/rules.ts';
+import Action from './Action.vue';
+import Condition from './Condition.vue';
 
-const rule = ref<Partial<IRule>>({})
-const route = useRoute()
+const { getConditions } = storeToRefs(useDictsStore())
+
 
 const onSave = console.log
-
+const { rule, loading, error } = storeToRefs(useRulesStore())
+const { fetchRule } = useRulesStore()
+const route = useRoute()
 const router = useRouter()
 onMounted(async function () {
     await router.isReady()
-    axios.get(`http://localhost:8080/api/rules/${route.params.id}`).then(({ data }) => {
-        rule.value = data
-    })
+    fetchRule(route.params.id)
 })
-
 </script>
 
 <template>
@@ -32,17 +31,19 @@ onMounted(async function () {
     <label>
         Name:
     </label>
-    <input type="text" v-model="rule.name" />
+    <input v-if="rule" type="text" v-model="rule.name" />
     <label>
         Condition:
     </label>
-    <textarea readonly>{{ rule.condition }}</textarea>
+    <Condition v-if="rule" :condition="rule.condition" :conditionsDict="getConditions()" />
     <label>
         Actions:
     </label>
-    <textarea readonly>{{ rule.actions }}</textarea>
+    <Action v-if="rule" v-for="action in rule.actions" :action="action" />
     <button @click="onSave">Save</button>
-    <!-- {{ rule }} -->
+    {{ loading }}
+    {{ error }}
+    {{ rule }}
 </template>
 
 <style scoped>
@@ -57,6 +58,6 @@ input {
 
 textarea {
     width: 100%;
-    height: 100px;
+    height: 200px;
 }
 </style>

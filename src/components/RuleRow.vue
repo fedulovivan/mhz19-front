@@ -1,19 +1,15 @@
 <script setup lang="ts">
 import { IRule } from '../types.ts';
 
-defineProps<{ rule: IRule }>() 
+defineProps<{ rule: IRule, counter: number }>() 
 </script>
 
 <template>
-    <div class="row">
-        <div>#{{ rule.id }}</div>
-        <div>{{ rule.name }}</div>
-        <RouterLink :to="`/rules/${rule.id}`">Edit</RouterLink>
-    </div>
+    <router-link :to="`/rules/${rule.id}`" custom v-slot="{ navigate }">
+        <tr @click="navigate">
+            <td>#{{ rule.id }}</td>
+            <td>{{ rule.name }}</td>
+            <td>{{ counter }}</td>
+        </tr>
+    </router-link>
 </template>
-
-<!-- <style scoped>
-.row {
-    grid-template-columns: 50px 1fr 1fr;
-}
-</style> -->
