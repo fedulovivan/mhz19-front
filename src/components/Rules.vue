@@ -8,7 +8,7 @@ import RuleRow from './RuleRow.vue';
 const { getRuleCounter } = storeToRefs(useStatsStore())
 const { fetchStats } = useStatsStore()
 
-const { rules, loading, error } = storeToRefs(useRulesStore())
+const { rules/* , loading, error */ } = storeToRefs(useRulesStore())
 const { fetchRules } = useRulesStore()
 fetchStats()
 fetchRules()

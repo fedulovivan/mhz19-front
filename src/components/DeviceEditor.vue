@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import {
-    onMounted,
-    watch,
-} from 'vue';
+import { onMounted } from 'vue';
 
 import { storeToRefs } from 'pinia';
 import {
@@ -19,7 +16,7 @@ const route = useRoute()
 const router = useRouter()
 
 const { device, error: deviceError } = storeToRefs(useDevicesStore())
-const { message } = storeToRefs(useLdmStore())
+// const { message } = storeToRefs(useLdmStore())
 const { fetchDevice, updateName } = useDevicesStore()
 const { fetchMessage } = useLdmStore()
 

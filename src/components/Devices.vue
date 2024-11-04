@@ -5,8 +5,8 @@ import { useDevicesStore } from '../stores/devices.ts';
 import { useLdmStore } from '../stores/ldm.ts';
 import DeviceRow from './DeviceRow.vue';
 
-const { devices, loading: devicesLoading, error } = storeToRefs(useDevicesStore())
-const { findMessage, loading: ldmLoading } = storeToRefs(useLdmStore())
+const { devices/* , loading: devicesLoading, error */ } = storeToRefs(useDevicesStore())
+const { findMessage/* , loading: ldmLoading */ } = storeToRefs(useLdmStore())
 const { fetchDevices } = useDevicesStore()
 const { fetchMessages } = useLdmStore()
 fetchDevices()

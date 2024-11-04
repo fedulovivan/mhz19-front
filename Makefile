@@ -1,18 +1,17 @@
-NAME ?= mhz19-go-frontend
+NAME ?= mhz19-front
 GIT_REV ?= $(shell git rev-parse --short HEAD)
 
-.PHONY: run
 run:
 	yarn dev
 
-.PHONY: docker-build
+build:
+	yarn build
+
 docker-build:
 	DOCKER_CLI_HINTS=false docker build --label "git.revision=${GIT_REV}" --tag $(NAME) .
 
-.PHONY: docker-up
 docker-up:
-	docker run --detach --publish 8080:80 --name=$(NAME) $(NAME)
+	docker run --detach --env-file=.env --publish 7171:80 --name=$(NAME) $(NAME)
 
-.PHONY: docker-down
 docker-down:
 	docker stop $(NAME) && docker rm $(NAME)	
