@@ -21,6 +21,7 @@ fetchMessages()
                 <th>Class</th>
                 <th>Native Id</th>
                 <th>Name</th>
+                <th>Buried Timeout</th>
                 <th>Last Message</th>
                 <th>Comments</th>
                 <th>Origin</th>

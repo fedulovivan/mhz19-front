@@ -62,6 +62,14 @@ const save = () => {
             <input class="input" type="text" placeholder="Text input" v-model="device.name">
         </div>
     </div>
+
+    <div class="field">
+        <label class="label">Buried Timeout</label>
+        <div class="control">
+            <input class="input" type="text" placeholder="Text input" v-model="device.buriedTimeout">
+        </div>
+    </div>
+
     <div class="field">
         <label class="label">Json</label>
         <div class="control">
@@ -70,7 +78,7 @@ const save = () => {
         </textarea>
         </div>
     </div>
-    <button class="button" @click="save">Save</button>
+    <button class="button" @click="save">Save name</button>
     {{ deviceError }}
     <!-- {{ messageError }} -->
 </template>

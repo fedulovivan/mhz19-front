@@ -55,6 +55,7 @@ export interface IDevice {
     deviceId: string
     deviceClass: string
     name: string
+    buriedTimeout: string
     comments?: string
     origin?: string
     json?: any
